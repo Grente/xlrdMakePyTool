@@ -6,8 +6,8 @@
 环境：python2.7  
 需安装依赖库：  
 xlrd  
-支持数据格式：python
- 
+支持数据格式：python  
+ 编码：GBK
 
 使用方法：  
 ----

@@ -3,7 +3,6 @@
 import os
 import re
 
-from make_misc import *
 
 FILE_TEMPLATE = """# -*- coding: gbk -*-"""
 

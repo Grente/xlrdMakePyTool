@@ -1,6 +1,5 @@
 # -*- coding: gbk -*-
 
-from make_misc import *
 from make_output import *
 
 import xlrd
@@ -79,7 +78,7 @@ def parse_bool(*args):
 	return val
 
 
-parserfunc = {
+parser_func = {
 	"int": (parse_int, "%d"),
 	"hex": (parse_hex, "0x%x"),
 	"float": (parse_float, "%.2f"),
@@ -148,7 +147,7 @@ def parse_headers(headers, load_headers, load_cfg):
 	for h in headers:
 		s = h[1]
 		skip = ""
-		while s and s[0] in ("#", "&", "*", "!", "{", "[", "(", "+", "-", "$"):
+		while s and s[0] in ("#", "&", "*", "!", "{", "[", "(", "+", "-"):
 			if s[0] in ("{", "[", "("):
 				if prefix:
 					s = s[1:]
@@ -166,8 +165,6 @@ def parse_headers(headers, load_headers, load_cfg):
 				prefix = s[0]
 			elif s[0] in ("#", "&", "*", "!"):
 				spec_str += s[0]
-			elif s[0] in ("$",):
-				parse_funlag[-1] += s[0]
 			else:
 				skip = s[0]
 			s = s[1:]
@@ -180,7 +177,7 @@ def parse_headers(headers, load_headers, load_cfg):
 			continue
 
 		pops = []
-		while s and s[-1] in ("#", "&", "*", "!", "[", "(", ")", "]", "}", "$"):
+		while s and s[-1] in ("#", "&", "*", "!", "[", "(", ")", "]", "}"):
 			if s[-1] in ("[", "("):
 				if prefix != "":
 					suffix = s[-1]
@@ -189,27 +186,21 @@ def parse_headers(headers, load_headers, load_cfg):
 					spec_suf += s[-1]
 				else:
 					spec_str += s[-1]
-			elif s[-1] in ("$",):
-				parse_funlag[-1] += s[-1]
 			else:
 				pops.append(s[-1])
 			s = s[:-1]
 
-		if s in parserfunc:
+		if s in parser_func:
 			# if prefix == "{" and "&" not in spec_str:
 			#	spec_str += "&"
-			parse_fun = parserfunc[s][0]
-			fmt = parserfunc[s][1]
+			parse_fun = parser_func[s][0]
+			fmt = parser_func[s][1]
 			comment_fun = None
-			repstr = ""
-			tempstr = ""
-			subrepstr = ""
-			if "$" in parse_funlag[-1]:
-				parse_funidx = 1
-				tempstridx = 0
-			else:
-				parse_funidx = 0
-				tempstridx = 1
+			rep_str = ""
+			temp_str = ""
+			subrep_str = ""
+			parse_funidx = 0
+			temp_stridx = 1
 			for idx, hdata in enumerate(h[2:]):
 				if idx == parse_funidx:
 					if type(hdata) in (tuple, list):
@@ -220,21 +211,21 @@ def parse_headers(headers, load_headers, load_cfg):
 					else:
 						if hdata != None:
 							parse_fun = hdata
-				elif idx == tempstridx:
+				elif idx == temp_stridx:
 					if type(hdata) in (tuple, list):
 						if len(hdata) == 1:
-							subrepstr, = hdata
+							subrep_str, = hdata
 						if len(hdata) == 2:
-							tempstr, subrepstr = hdata
+							temp_str, subrep_str = hdata
 						elif len(hdata) >= 3:
-							repstr, tempstr, subrepstr = hdata
+							rep_str, temp_str, subrep_str = hdata
 					else:
 						if hdata != None:
-							subrepstr = hdata
+							subrep_str = hdata
 				elif idx == 2:
 					if hdata != None:
 						comment_fun = hdata
-			templates = (repstr, tempstr, subrepstr)
+			templates = (rep_str, temp_str, subrep_str)
 			parse_header.append(h[0])
 			parse_cfg.append((h[0], s, prefix, suffix, spec_str, spec_suf, parse_fun, fmt, templates, comment_fun))
 			prefix = ""
