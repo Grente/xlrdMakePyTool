@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="334a7e5c-dd40-427b-aa9f-33496e484972" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xlrdMakePyTool/make_def.py" beforeDir="false" afterPath="$PROJECT_DIR$/xlrdMakePyTool/make_def.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xlrdMakePyTool/make_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/xlrdMakePyTool/make_helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xlrdMakePyTool/make_misc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/xlrdMakePyTool/make_output.py" beforeDir="false" afterPath="$PROJECT_DIR$/xlrdMakePyTool/make_output.py" afterDir="false" />
-    </list>
+    <list default="true" id="334a7e5c-dd40-427b-aa9f-33496e484972" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +111,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="200" />
     <option name="y" value="460" />
     <option name="width" value="1485" />
@@ -148,6 +142,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -174,12 +169,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1600618111745</updated>
-      <workItem from="1600618113844" duration="198000" />
+      <workItem from="1600618113844" duration="264000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="198000" />
+    <option name="totallyTimeSpent" value="264000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
