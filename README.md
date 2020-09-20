@@ -1,6 +1,6 @@
 # xlrdMakePyTool  
 # xlrd游戏配置导表工具  
-基于xlrd的超方便的python导表工具，支持python多种数据结构  
+基于xlrd的超方便的python导表工具，可以定义转换格式配置，支持python多种数据结构，一键导出数据
 ****
  
 环境：python2.7  
