@@ -3,24 +3,11 @@
 import os
 import re
 
-
 FILE_TEMPLATE = """# -*- coding: gbk -*-"""
-
-# 正则判断是否为数字类型文件
-g_rePatternNumberFile = re.compile(r"[A-Za-z_]+\d{3,5}\.py")
 
 
 def _get_add_flag(filename, badd):
-	if badd == True or badd == False:
-		return badd
-
-	if badd is None:
-		# 数字类文件(技能、道具的子文件等)默认为False，其他默认为True
-		if g_rePatternNumberFile.match(os.path.basename(filename)):
-			return False
-		else:
-			return True
-	return False
+	return True
 
 
 def _gen_output(prefix, output, suffix):
@@ -37,10 +24,7 @@ def _gen_output(prefix, output, suffix):
 
 
 def _enable_new_file(filename):
-	if g_rePatternNumberFile.match(os.path.basename(filename)):
-		return True
-	else:
-		return True
+	return True
 
 
 def output_file(filename, output, key_txt=None, badd=None, file_template=None):

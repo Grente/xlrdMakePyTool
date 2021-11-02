@@ -1,11 +1,9 @@
 # -*- coding: gbk -*-
 
 
-from make_output import *
-from make_helper import *
 
 # 默认生成文件路径
-PATH = "D:/xyf/data/"
+PATH = "./data/"
 with open("config.ini", "r") as f:
 	for s in f.readlines():
 		lst = s.split("=")

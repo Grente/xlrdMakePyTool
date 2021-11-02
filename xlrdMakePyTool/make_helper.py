@@ -2,8 +2,6 @@
 
 from make_output import *
 
-import xlrd
-import time
 
 OUT_CHARSET = "GBK"
 
@@ -522,21 +520,6 @@ def check_real_headers(sh, headers, load_headers):
 	return real_load_headers, idx_lst
 
 
-def _resort_data(fd, idx_lst):
-	_get_idx = lambda x: x[-1] if type(x) is list else x
-	resort_lst = [_get_idx(x) for x in idx_lst[:-1]]
-	new_resort_lst = sorted(resort_lst)
-	resort_lst = [new_resort_lst.index(x) for x in resort_lst]
-
-	for i in xrange(len(fd)):
-		fd[i] = [fd[i][idx] for idx in resort_lst]
-		for j, idx in enumerate(idx_lst[:-1]):
-			if type(idx) is list:
-				_resort_data(fd[i][j], idx)
-
-	return fd
-
-
 def parse_datas(fd, load_cfg, deep=0, deep_keys={}):
 	cfg_idx = get_key_idx(load_cfg)
 	data_cfg = load_cfg[cfg_idx]
@@ -682,7 +665,7 @@ def get_col(h):
 	return cnt
 
 
-# 主使用函数
+# 主要使用函数
 def sheet2pydata(sh, headers, outfile, data_name, comment):
 	# 把数据写道py文件里面
 	load_headers = []
@@ -696,11 +679,11 @@ def sheet2pydata(sh, headers, outfile, data_name, comment):
 		for sheet in sh:
 			real_load_headers, resort_idx_lst = check_real_headers(sheet, headers, load_headers)
 			land_data = load_sheet(sheet, real_load_headers)
-			fd.extend(_resort_data(land_data, resort_idx_lst))
+			fd.extend(land_data)
 	else:
 		real_load_headers, resort_idx_lst = check_real_headers(sh, headers, load_headers)
-		land_data = load_sheet(sh, real_load_headers)
-		fd = _resort_data(land_data, resort_idx_lst)  # load_sheet 根据表头和索引读出对应的数据，_resort_data重新排序
+		load_data = load_sheet(sh, real_load_headers)
+		fd = load_data
 
 	# 名字和数据拼起来
 	s = data_name
@@ -725,11 +708,11 @@ def sheet2data(sh, headers, begin_row=1):
 		for sheet in sh:
 			real_load_headers, resort_idx_lst = check_real_headers(sheet, headers, load_headers)
 			land_data = load_sheet(sheet, load_headers, begin_row)
-			fd.extend(_resort_data(land_data, resort_idx_lst))
+			fd.extend(land_data)
 	else:
 		real_load_headers, resort_idx_lst = check_real_headers(sh, headers, load_headers)
-		land_data = load_sheet(sh, load_headers, begin_row)
-		fd = _resort_data(land_data, resort_idx_lst)
+		land_data = load_sheet(sh, real_load_headers, begin_row)
+		fd = land_data
 
 	return parse_datas(fd, load_cfg)
 

@@ -1,6 +1,10 @@
 # -*- coding: gbk -*-
 
 from make_def import *
+from make_helper import *
+import xlrd
+import time
+
 
 def make_pydata(bk):
 	# 普通组合数据
@@ -15,6 +19,7 @@ def make_pydata(bk):
 	err = output_file(PATH + "testdata.py", out_str, "组合测试数据")
 	if err:
 		return err
+
 
 def make_pydata_by_format(bk):
 	# 生成py文件
@@ -32,7 +37,6 @@ def make_pydata_by_format(bk):
 	err = sheet2pydata(sh, headers, PATH + "testdata.py", "ITEM_REWARD_DATA", "道具奖励")
 	if err:
 		return err
-
 
 	# 使用转换函数_make_time，和注释函数_comment
 	def _make_time(tmstring):
@@ -58,7 +62,6 @@ def make_pydata_by_format(bk):
 	err = sheet2pydata(sh, headers, PATH + "testdata.py", "ACTIVITY_DATA", "活动奖励数据")
 	if err:
 		return err
-
 
 	# 使用模板 重新组合数据
 	def _template(data, deep):
@@ -119,10 +122,8 @@ def make_data_by_format(bk):
 	return sheet2data(sh, headers)
 
 
-
 if __name__ == "__main__":
 	bk = xlrd.open_workbook("测试表格.xls")
 	make_pydata(bk)
 	make_pydata_by_format(bk)
 	print make_data_by_format(bk)
-
